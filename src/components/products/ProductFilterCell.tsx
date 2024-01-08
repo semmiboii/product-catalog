@@ -1,3 +1,5 @@
+// incomplete
+
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilter } from "../../redux/slices/categories-slice";
@@ -37,7 +39,7 @@ const ProductFilterCell: React.FC<ProductFilterCellProps> = ({ cell, categories,
                     </li>
                 ))}
             </ul>}
-            {cell === "price"   // todo: add price filter.
+            {cell === "price"   // todo: add price filter and filter_function.
                 && <Price/>
             }
         </div>
