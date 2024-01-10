@@ -2,10 +2,10 @@ import { Slider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setPriceRange } from "../../../redux/slices/products-slice";
-import { Store } from "../../../redux/store";
+import { Reducers } from "../../../redux/store";
 
 const PriceFilter = () => {
-  const price = useSelector((state: Store) => state.products.priceRange);
+  const price = useSelector((state: Reducers) => state.products.priceRange);
   const dispatch = useDispatch();
 
   const handlePriceChange = (event: Event, newValue: number | number[]) => {
@@ -13,9 +13,10 @@ const PriceFilter = () => {
   };
 
   const marks = [
-    { value: 0, label: "$0" },
+    { value: 1, label: "$1" },
     { value: 500, label: "$500" },
     { value: 1000, label: "$1000" },
+    { value: 2000, label: "$2000" },
   ];
 
   return (
@@ -26,8 +27,8 @@ const PriceFilter = () => {
         onChange={handlePriceChange}
         valueLabelDisplay="auto"
         marks={marks}
-        min={0}
-        max={1000}
+        min={1}
+        max={2000}
       />
     </>
   );

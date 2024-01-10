@@ -11,9 +11,14 @@ import ProductItem, {
   loader as productItemLoader,
 } from "./components/products/ProductItem";
 
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
+
 import "./App.css";
 
 const queryClient = new QueryClient();
+
+let persistor = persistStore(store);
 
 const router = createBrowserRouter([
   {
@@ -41,7 +46,9 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <RouterProvider router={router}></RouterProvider>
+        <PersistGate persistor={persistor}>
+          <RouterProvider router={router}></RouterProvider>
+        </PersistGate>
       </Provider>
     </QueryClientProvider>
   );

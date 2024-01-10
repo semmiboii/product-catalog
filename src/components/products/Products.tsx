@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import ProductFilter from "./product-ui/ProductFilter";
 import Loading from "../UI/Loading";
 import { useSelector } from "react-redux";
-import { Store } from "../../redux/store";
 
 const ProductCard = lazy(() => import("./product-ui/ProductCard"));
 
@@ -31,7 +30,7 @@ export interface ProductCardProps {
 
 const Products: React.FC = () => {
   const { categoryFilter, priceRange } = useSelector(
-    (state: Store) => state.products
+    (state: any) => state.products
   );
 
   // Function to fetch all the products through axios.
@@ -50,12 +49,20 @@ const Products: React.FC = () => {
     queryKey: ["products"],
   });
 
-  const filteredProducts =
+  const categoryFilteredProducts =
     isSuccess && allProducts && categoryFilter
       ? allProducts.products.filter(
           (product: ProductType) => product.category === categoryFilter
         )
       : isSuccess && allProducts && allProducts.products;
+
+  const priceFilteredProducts = 
+    isSuccess && categoryFilteredProducts && categoryFilteredProducts.filter((product: ProductType) => {
+      const [min, max] = priceRange;
+      if (product.price >= min && product.price <= max){
+        return product
+      }
+    })
 
   // Checking if the data is fetched, then mapping the data to individual products.
   return (
@@ -64,14 +71,14 @@ const Products: React.FC = () => {
         <ProductFilter />
       </div>
       <Suspense fallback={<Loading />}>
-        {isSuccess && filteredProducts.length !== 0 && (
-          <div className="h-full w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 p-2 overflow-scroll gap-4">
-            {filteredProducts.map((product: ProductType) => (
+        {isSuccess && priceFilteredProducts.length !== 0 && (
+          <div className="h-full w-full grid lg:grid-cols-3 md:grid-cols-1 p-2 overflow-scroll gap-4">
+            {priceFilteredProducts.map((product: ProductType) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         )}
-        {isSuccess && filteredProducts.length === 0 && (
+        {isSuccess && priceFilteredProducts.length === 0 && (
           <div className="text-3xl w-full h-full flex justify-center items-center">
             <h1>No Products Found</h1>
           </div>

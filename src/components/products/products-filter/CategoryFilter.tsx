@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Store } from "../../../redux/store";
 import { setFilter } from "../../../redux/slices/products-slice";
+import { Reducers } from "../../../redux/store";
 
 interface CategoryFilterProps {
   categories?: string[];
@@ -9,7 +9,7 @@ interface CategoryFilterProps {
 const CategoryFilter: React.FC<CategoryFilterProps> = ({ categories }) => {
   const dispatch = useDispatch();
   const selectedCategory = useSelector(
-    (state: Store) => state.products.categoryFilter
+    (state: Reducers) => state.products.categoryFilter
   );
 
   const handleChange = (e: { target: { value: string; checked: boolean } }) => {

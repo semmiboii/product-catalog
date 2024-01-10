@@ -5,10 +5,21 @@ import { ProductType } from "./Products";
 
 import { FaRegStar, FaShoppingBasket } from "react-icons/fa";
 import { Carousel } from "react-responsive-carousel";
+
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/slices/cart-slice";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const ProductItem = () => {
   const product = useLoaderData() as ProductType;
+  console.log(product); 
+
+  const dispatch = useDispatch();
+
+  const handleCart = () => {
+    dispatch(addToCart(product));
+  };
 
   return (
     product && (
@@ -55,7 +66,10 @@ const ProductItem = () => {
               stock - {product.stock}
             </span>
           </div>
-          <button className="bg-neutral-300 p-5 rounded-md flex md:w-full items-center justify-center gap-4 active:bg-lime-300">
+          <button
+            className="bg-neutral-300 p-5 rounded-md flex md:w-full items-center justify-center gap-4 active:bg-lime-300"
+            onClick={handleCart}
+          >
             ADD TO CART <FaShoppingBasket size="20px" />
           </button>
         </div>
@@ -65,6 +79,8 @@ const ProductItem = () => {
 };
 
 export async function loader({ request, params }: string | any) {
+  console.log(request);
+  
   const { productID } = params;
   const res = await axios.get(`https://dummyjson.com/products/${productID}`);
   const data = await res.data;

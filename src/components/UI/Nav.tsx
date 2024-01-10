@@ -1,7 +1,5 @@
 import { NavLink } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
-import { createPortal } from "react-dom";
-import Cart from "../cart/Cart";
 
 const Nav = () => {
   return (
@@ -10,11 +8,9 @@ const Nav = () => {
         <NavLink to="/">ecommerce</NavLink>
       </h1>
       <div className="flex gap-6 items-center">
-        <NavLink to="/catalog">catalog</NavLink>
-        <NavLink to="/cart">
-          <FaShoppingCart />
+        <NavLink to="/cart" className="flex items-center gap-2">
+          <FaShoppingCart /> Cart
         </NavLink>
-        <NavLink to="/user">user</NavLink>
       </div>
     </nav>
   );
