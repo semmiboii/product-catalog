@@ -12,7 +12,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ categories }) => {
     (state: Store) => state.products.categoryFilter
   );
 
-  const handleChange = (e: { target: { value: string } }) => {
+  const handleChange = (e: { target: { value: string; checked: boolean } }) => {
     dispatch(setFilter(e.target.value));
   };
 

@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { useQuery } from "@tanstack/react-query";
 
-import ProductFilterCell from "./ProductFilterCell";
+import ProductFilterItem from "./ProductFilterItem";
 
 const ProductFilter = () => {
   const fetchCategories = async () => {
@@ -19,11 +19,11 @@ const ProductFilter = () => {
   });
 
   return (
-    <div className="border-2 border-gray-300 outline-none min-w-80 rounded-md">
+    <div className="border-2 border-gray-300 outline-none block min-w-80 sm:relative rounded-md ">
       <h1 className="uppercase font-extrabold pl-2 pt-2 text-center text-2xl">
         Filter
       </h1>
-      <ProductFilterCell categories={allCategories} isSuccess={isSuccess} />
+      <ProductFilterItem categories={allCategories} isSuccess={isSuccess} />
     </div>
   );
 };

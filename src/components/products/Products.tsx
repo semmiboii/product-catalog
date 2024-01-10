@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 
 import ProductFilter from "./product-ui/ProductFilter";
 import Loading from "../UI/Loading";
+import { useSelector } from "react-redux";
+import { Store } from "../../redux/store";
 
 const ProductCard = lazy(() => import("./product-ui/ProductCard"));
 
@@ -28,34 +30,52 @@ export interface ProductCardProps {
 }
 
 const Products: React.FC = () => {
+  const { categoryFilter, priceRange } = useSelector(
+    (state: Store) => state.products
+  );
+
+  // Function to fetch all the products through axios.
   const fetchProducts = async () => {
-    // Function to fetch all the products through axios.
-    const url = "https://dummyjson.com/products";
+    let url = "https://dummyjson.com/products";
     const res = await axios.get(url);
     const data = await res.data;
 
     return data;
   };
 
+  // Fetching all the products through useQuery.
+
   const { data: allProducts, isSuccess } = useQuery({
-    // Fetching all the products through useQuery.
     queryFn: fetchProducts,
     queryKey: ["products"],
   });
 
+  const filteredProducts =
+    isSuccess && allProducts && categoryFilter
+      ? allProducts.products.filter(
+          (product: ProductType) => product.category === categoryFilter
+        )
+      : isSuccess && allProducts && allProducts.products;
+
   // Checking if the data is fetched, then mapping the data to individual products.
   return (
-    <div className="flex flex-row h-full">
-      <div>
+    <div className="flex flex-row h-full overflow-scroll">
+      <div className="hidden sm:block relative">
         <ProductFilter />
       </div>
       <Suspense fallback={<Loading />}>
-        <div className="h-full w-full grid lg:grid-cols-4 md:grid-cols-2 p-2 overflow-scroll gap-4">
-          {isSuccess &&
-            allProducts.products.map((product: ProductType) => (
+        {isSuccess && filteredProducts.length !== 0 && (
+          <div className="h-full w-full grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 p-2 overflow-scroll gap-4">
+            {filteredProducts.map((product: ProductType) => (
               <ProductCard key={product.id} product={product} />
             ))}
-        </div>
+          </div>
+        )}
+        {isSuccess && filteredProducts.length === 0 && (
+          <div className="text-3xl w-full h-full flex justify-center items-center">
+            <h1>No Products Found</h1>
+          </div>
+        )}
       </Suspense>
     </div>
   );

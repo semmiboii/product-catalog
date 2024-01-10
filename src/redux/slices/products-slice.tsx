@@ -6,8 +6,8 @@ export interface ProductsState {
 }
 
 const initialState: ProductsState = {
-  categoryFilter: "smartphones",
-  priceRange: [0, 100],
+  categoryFilter: "",
+  priceRange: [0, 1000],
 };
 
 const productsSlice = createSlice({

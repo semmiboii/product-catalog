@@ -1,12 +1,12 @@
 import PriceFilter from "../products-filter/PriceFilter";
 import CategoryFilter from "../products-filter/CategoryFilter";
 
-interface ProductFilterCellProps {
+interface ProductFilterItemProps {
   categories: string[];
   isSuccess?: boolean;
 }
 
-const ProductFilterCell: React.FC<ProductFilterCellProps> = ({
+const ProductFilterItem: React.FC<ProductFilterItemProps> = ({
   categories,
   isSuccess,
 }) => {
@@ -22,4 +22,4 @@ const ProductFilterCell: React.FC<ProductFilterCellProps> = ({
   );
 };
 
-export default ProductFilterCell;
+export default ProductFilterItem;
