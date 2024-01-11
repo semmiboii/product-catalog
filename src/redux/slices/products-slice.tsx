@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface ProductsState {
+export interface ProductsState {                                                           // type-definition for filtering the products.
   categoryFilter: string;
   priceRange: [number, number];
 }
 
-const initialState: ProductsState = {
+const initialState: ProductsState = {                                                      // initial State for filtering the products.
   categoryFilter: "",
   priceRange: [0, 1000],
 };
@@ -14,10 +14,10 @@ const productsSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    setFilter(state, action) {
+    setFilter(state, action) {                                                             // setting category to filter within.
       state.categoryFilter = action.payload;
     },
-    setPriceRange(state, action) {
+    setPriceRange(state, action) {                                                         // setting price-range to filter within.
       state.priceRange = action.payload;
     },
   },

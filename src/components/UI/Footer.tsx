@@ -1,11 +1,9 @@
-
 const Footer = () => {
   return (
-    <footer className='text-xl w-full h-[10vh] flex items-center justify-between font-semibold'>
-      <h1>about us</h1>
-      <h1>sammy</h1>
+    <footer className="text-xl w-full h-[10vh] flex items-center justify-end font-semibold">
+      <h1 className="text-slate-400">made by samir</h1>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

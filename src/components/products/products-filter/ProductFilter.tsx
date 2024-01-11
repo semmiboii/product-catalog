@@ -6,7 +6,7 @@ import ProductFilterItem from "./ProductFilterItem";
 
 const ProductFilter = () => {
   const fetchCategories = async () => {
-    const url = "https://dummyjson.com/products/categories";
+    const url = "https://dummyjson.com/products/categories"; // fetching data from dummyjson.com/products - FakeAPI
     const res = await axios.get(url);
     const data = await res.data;
 
@@ -14,15 +14,13 @@ const ProductFilter = () => {
   };
 
   const { data: allCategories, isSuccess } = useQuery({
+    // using useQuery hook provided by @tanstack/query to get all information about the query.
     queryKey: ["categories"],
     queryFn: fetchCategories,
   });
 
   return (
-    <div className="border-2 border-gray-300 outline-none block min-w-80 sm:relative rounded-md ">
-      <h1 className="uppercase font-extrabold pl-2 pt-2 text-center text-2xl">
-        Filter
-      </h1>
+    <div className="h-full bg-emerald-400 outline-none min-w-80 drop-shadow-2xl p-1 flex flex-col justify-center overflow-scroll">
       <ProductFilterItem categories={allCategories} isSuccess={isSuccess} />
     </div>
   );

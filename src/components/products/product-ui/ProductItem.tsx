@@ -7,18 +7,17 @@ import { FaRegStar, FaShoppingBasket } from "react-icons/fa";
 import { Carousel } from "react-responsive-carousel";
 
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/slices/cart-slice";
+import { addToCart } from "../../../redux/slices/cart-slice";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const ProductItem = () => {
   const product = useLoaderData() as ProductType;
-  console.log(product); 
 
   const dispatch = useDispatch();
 
   const handleCart = () => {
-    dispatch(addToCart(product));
+    dispatch(addToCart(product)); // adding item to cart from individual product.
   };
 
   return (
@@ -43,8 +42,8 @@ const ProductItem = () => {
                 <span className="flex items-center gap-2 bg-green-400 p-4 rounded-md">
                   {product.rating} <FaRegStar />
                 </span>
-                <span className="text-md font-normal bg-black text-white px-6 py-2 rounded-md flex justify-center items-center">
-                  Brand - {product.brand}
+                <span className="text-md font-normal bg-black text-white px-6 py-2 rounded-md flex flex-col justify-center items-center">
+                  Brand - <span>{product.brand}</span>
                 </span>
               </div>
               <span className="text-end flex items-center justify-center bg-lime-400 p-4 rounded-md">
@@ -80,7 +79,7 @@ const ProductItem = () => {
 
 export async function loader({ request, params }: string | any) {
   console.log(request);
-  
+
   const { productID } = params;
   const res = await axios.get(`https://dummyjson.com/products/${productID}`);
   const data = await res.data;

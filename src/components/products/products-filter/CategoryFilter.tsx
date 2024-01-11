@@ -25,7 +25,7 @@ const CategoryFilter: React.FC<CategoryFilterProps> = ({ categories }) => {
             category,
             index // todo: add_filter_function and shift this to another module.
           ) => (
-            <li className="flex flex-row gap-3" key={index}>
+            <li className="flex flex-row gap-3 font-lato" key={index}>
               <input
                 type="checkbox"
                 name={category}

@@ -1,5 +1,5 @@
-import { Slider } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { Slider } from "@mui/material";
 
 import { setPriceRange } from "../../../redux/slices/products-slice";
 import { Reducers } from "../../../redux/store";
@@ -13,15 +13,15 @@ const PriceFilter = () => {
   };
 
   const marks = [
-    { value: 1, label: "$1" },
-    { value: 500, label: "$500" },
-    { value: 1000, label: "$1000" },
-    { value: 2000, label: "$2000" },
+    { value: 1, label: "1" },
+    { value: 500, label: "500" },
+    { value: 1000, label: "1000" },
+    { value: 2000, label: "2000" },
   ];
 
   return (
     <>
-      <h3 className="pb-4 uppercase font-black">PRICE</h3>
+      <h3 className="pb-4 uppercase font-black">PRICE - $</h3>
       <Slider
         value={price}
         onChange={handlePriceChange}
